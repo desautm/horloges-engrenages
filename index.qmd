@@ -575,6 +575,6 @@ D'où viennent les nombres $\frac{6}{200}$ et $\frac{5}{216}$?
   - Le dénominateur possède les facteurs $2^6 \times 3^3 \times 5^2$.
 - On peut partager les facteurs du numérateur en deux groupes de trois manières différentes.
   - $\frac{2\cdot 2\cdot 2}{2}-1=3$
-- On 
+- On peut partager les facteurs du dénominateur en deux groupes de quarante-une manières différentes.
+  - $\frac{7\cdot 4\cdot 3}{2}-1=41$
 
-The answer comes straight from number theory: factoring. In the ratio 30/43200, the numerator has the prime factors 2x3x5, and the denominator breaks down into eleven factors: 2x2x2x2x2x2x3x3x3x5x5. The Fundamental Theorem of Arithmetic guarantees that no matter how you group these factors, their product will always be the same. The factors of the numerator can be partitioned into two groups in just three ways: 6x5, 3x10 and 2x15. The factors of the denominator 43,200 can be partitioned into two groups in 41 distinguishable ways.
