@@ -11,7 +11,7 @@
   <meta name="generator" content="quarto-1.5.41">
 
   <meta name="author" content="Marc-André Désautels">
-  <title>Horloges et engrenages</title>
+  <title>Pourquoi les engrenages aiment les fractions… et un arbre en particulier</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -29,6 +29,71 @@
       margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
       vertical-align: middle;
     }
+    /* CSS for syntax highlighting */
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+      }
+    pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+    div.sourceCode
+      { color: #24292e;  }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span { color: #24292e; } /* Normal */
+    code span.al { color: #ff5555; font-weight: bold; } /* Alert */
+    code span.an { color: #6a737d; } /* Annotation */
+    code span.at { color: #d73a49; } /* Attribute */
+    code span.bn { color: #005cc5; } /* BaseN */
+    code span.bu { color: #d73a49; } /* BuiltIn */
+    code span.cf { color: #d73a49; } /* ControlFlow */
+    code span.ch { color: #032f62; } /* Char */
+    code span.cn { color: #005cc5; } /* Constant */
+    code span.co { color: #6a737d; } /* Comment */
+    code span.cv { color: #6a737d; } /* CommentVar */
+    code span.do { color: #6a737d; } /* Documentation */
+    code span.dt { color: #d73a49; } /* DataType */
+    code span.dv { color: #005cc5; } /* DecVal */
+    code span.er { color: #ff5555; text-decoration: underline; } /* Error */
+    code span.ex { color: #d73a49; font-weight: bold; } /* Extension */
+    code span.fl { color: #005cc5; } /* Float */
+    code span.fu { color: #6f42c1; } /* Function */
+    code span.im { color: #032f62; } /* Import */
+    code span.in { color: #6a737d; } /* Information */
+    code span.kw { color: #d73a49; } /* Keyword */
+    code span.op { color: #24292e; } /* Operator */
+    code span.ot { color: #6f42c1; } /* Other */
+    code span.pp { color: #d73a49; } /* Preprocessor */
+    code span.re { color: #6a737d; } /* RegionMarker */
+    code span.sc { color: #005cc5; } /* SpecialChar */
+    code span.ss { color: #032f62; } /* SpecialString */
+    code span.st { color: #032f62; } /* String */
+    code span.va { color: #e36209; } /* Variable */
+    code span.vs { color: #032f62; } /* VerbatimString */
+    code span.wa { color: #ff5555; } /* Warning */
   </style>
   <link rel="stylesheet" href="index_files/libs/revealjs/dist/theme/quarto.css">
   <link href="index_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
@@ -326,7 +391,7 @@
     <div class="slides">
 
 <section id="title-slide" data-background-color="black" class="quarto-title-block center">
-  <h1 class="title">Horloges et engrenages</h1>
+  <h1 class="title">Pourquoi les engrenages aiment les fractions… et un arbre en particulier</h1>
 
 <div class="quarto-title-authors">
 <div class="quarto-title-author">
@@ -337,14 +402,463 @@ Marc-André Désautels
 </div>
 
 </section>
-<section class="slide level2">
+<section>
+<section id="comment-marc-andré-est-arrivé-à-cette-idée" class="title-slide slide level1 center" data-background-color="black">
+<h1>Comment Marc-André est arrivé à cette idée?</h1>
 
+</section>
+<section id="un-petit-détour-avant-de-commencer." class="slide level2">
+<h2>Un petit détour avant de commencer.</h2>
+<ul>
+<li class="fragment">Avant d’entrer dans le coeur du sujet, je veux vous montrer le chemin par lequel j’y suis arrivé.</li>
+<li class="fragment">On me demande parfois comment je trouve mes idées.</li>
+<li class="fragment">Et cette fois-ci encore, le parcours a été fait de curiosité, de détours inattendus et de liens surprenants entre mécanique et mathématiques.</li>
+<li class="fragment">En quelques minutes, je vous présente donc ma démarche créative : comment mes idées se sont engrenées… jusqu’à cette présentation.</li>
+</ul>
+</section>
+<section id="fibonacci" class="slide level2">
+<h2>Fibonacci</h2>
+<ul>
+<li class="fragment">Nouveau programme de Sciences, Informatique et Mathématiques au cégep Saint-Jean-sur-Richelieu.</li>
+<li class="fragment">Nouveau cours de <em>Mathématiques discrètes</em>.</li>
+<li class="fragment">Les personnes étudiantes utilisent <code>Python</code> en programmation.</li>
+<li class="fragment">Dans le cadre de ce cours, on veut présenter des liens entre Mathématiques et Informatique.</li>
+<li class="fragment">Un choix facile est la suite de Fibonacci.</li>
+</ul>
+</section>
+<section id="fibonacci-1" class="slide level2">
+<h2>Fibonacci</h2>
+<ul>
+<li class="fragment">La suite de Fibonacci est l’une des structures les plus riches pour illustrer les concepts clés d’un cours de mathématiques discrètes.</li>
+<li class="fragment">Récurrences linéaires.</li>
+<li class="fragment">Combinatoire et dénombrement:
+<ul>
+<li class="fragment">Nombre de façons de monter un escalier avec pas de 1 ou de 2;</li>
+<li class="fragment">Configurations sans éléments adjacents.</li>
+</ul></li>
+<li class="fragment">Algorithmes récursifs.</li>
+<li class="fragment">Etc.</li>
+</ul>
+</section>
+<section id="fibonacci-2" class="slide level2">
+<h2>Fibonacci</h2>
+<p><span class="math display">\[
+F_n = F_{n-1}+F_{n-2} \quad \text{où } F_1=F_2=1
+\]</span></p>
+<ul>
+<li class="fragment">Un des nombreux résultats concernant la suite de Fibonacci implique la limite des quotients.</li>
+<li class="fragment"><span class="math inline">\(\lim\limits_{n\to\infty} \dfrac{F_{n+1}}{F_n} = \varphi = \dfrac{1+\sqrt{5}}{2}\)</span></li>
+</ul>
+</section>
+<section id="fibonacci-3" class="slide level2">
+<h2>Fibonacci</h2>
+<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href=""></a><span class="kw">def</span> fibonacci(n):</span>
+<span id="cb1-2"><a href=""></a>    <span class="co">"""</span></span>
+<span id="cb1-3"><a href=""></a><span class="co">    Génère les n premiers nombres de Fibonacci.</span></span>
+<span id="cb1-4"><a href=""></a><span class="co">    """</span></span>
+<span id="cb1-5"><a href=""></a>    <span class="cf">if</span> n <span class="op">&lt;=</span> <span class="dv">0</span>:</span>
+<span id="cb1-6"><a href=""></a>        <span class="cf">return</span> []</span>
+<span id="cb1-7"><a href=""></a>    <span class="cf">elif</span> n <span class="op">==</span> <span class="dv">1</span>:</span>
+<span id="cb1-8"><a href=""></a>        <span class="cf">return</span> [<span class="dv">1</span>]</span>
+<span id="cb1-9"><a href=""></a>    <span class="cf">else</span>:</span>
+<span id="cb1-10"><a href=""></a>        fib_sequence <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">1</span>]</span>
+<span id="cb1-11"><a href=""></a>        <span class="cf">while</span> <span class="bu">len</span>(fib_sequence) <span class="op">&lt;</span> n:</span>
+<span id="cb1-12"><a href=""></a>            next_fib <span class="op">=</span> fib_sequence[<span class="op">-</span><span class="dv">1</span>] <span class="op">+</span> fib_sequence[<span class="op">-</span><span class="dv">2</span>]</span>
+<span id="cb1-13"><a href=""></a>            fib_sequence.append(next_fib)</span>
+<span id="cb1-14"><a href=""></a>        <span class="cf">return</span> fib_sequence</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="fragment">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href=""></a><span class="bu">print</span>(fibonacci(<span class="dv">15</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, 233, 377, 610]</code></pre>
+</div>
+</div>
+</div>
+</section></section>
+<section>
+<section id="fibonacci-aléatoire-t_n" class="title-slide slide level1 center" data-background-color="black">
+<h1>Fibonacci <em>aléatoire</em> (<span class="math inline">\(T_n\)</span>)</h1>
+
+</section>
+<section id="fibonacci-aléatoire-t_n-1" class="slide level2">
+<h2>Fibonacci <em>aléatoire</em> (<span class="math inline">\(T_n\)</span>)</h2>
+<ul>
+<li class="fragment"><span class="math inline">\(T_1=T_2=1\)</span>.</li>
+<li class="fragment"><span class="math inline">\(T_n = T_{n-1}+T_{n-2}\)</span> avec probabilité <span class="math inline">\(\frac{1}{4}\)</span>.</li>
+<li class="fragment"><span class="math inline">\(T_n = -T_{n-1}+T_{n-2}\)</span> avec probabilité <span class="math inline">\(\frac{1}{4}\)</span>.</li>
+<li class="fragment"><span class="math inline">\(T_n = T_{n-1}-T_{n-2}\)</span> avec probabilité <span class="math inline">\(\frac{1}{4}\)</span>.</li>
+<li class="fragment"><span class="math inline">\(T_n = -T_{n-1}-T_{n-2}\)</span> avec probabilité <span class="math inline">\(\frac{1}{4}\)</span>.</li>
+<li class="fragment">Est-ce que les termes <strong>s’annulent</strong> en raison des additions et des soustractions?</li>
+<li class="fragment">Ou est-ce que la suite augmente exponentiellement avec <span class="math inline">\(n\)</span>, comme la suite de Fibonacci?</li>
+</ul>
+</section>
+<section id="fibonacci-aléatoire-t_n-2" class="slide level2">
+<h2>Fibonacci <em>aléatoire</em> (<span class="math inline">\(T_n\)</span>)</h2>
+<div class="sourceCode" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href=""></a><span class="kw">def</span> vibonacci(n):</span>
+<span id="cb4-2"><a href=""></a>    <span class="co">"""</span></span>
+<span id="cb4-3"><a href=""></a><span class="co">    Génère les n premiers nombres de Vibonacci.</span></span>
+<span id="cb4-4"><a href=""></a><span class="co">    """</span></span>
+<span id="cb4-5"><a href=""></a>    <span class="cf">if</span> n <span class="op">&lt;=</span> <span class="dv">0</span>:</span>
+<span id="cb4-6"><a href=""></a>        <span class="cf">return</span> []</span>
+<span id="cb4-7"><a href=""></a>    <span class="cf">elif</span> n <span class="op">==</span> <span class="dv">1</span>:</span>
+<span id="cb4-8"><a href=""></a>        <span class="cf">return</span> [<span class="dv">1</span>]</span>
+<span id="cb4-9"><a href=""></a>    <span class="cf">else</span>:</span>
+<span id="cb4-10"><a href=""></a>        fib_sequence <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">1</span>]</span>
+<span id="cb4-11"><a href=""></a>        <span class="cf">while</span> <span class="bu">len</span>(fib_sequence) <span class="op">&lt;</span> n:</span>
+<span id="cb4-12"><a href=""></a>            r1 <span class="op">=</span> random.randint(<span class="dv">0</span>, <span class="dv">1</span>)</span>
+<span id="cb4-13"><a href=""></a>            r2 <span class="op">=</span> random.randint(<span class="dv">0</span>, <span class="dv">1</span>)</span>
+<span id="cb4-14"><a href=""></a>            next_fib <span class="op">=</span> (<span class="op">-</span><span class="dv">1</span>)<span class="op">**</span>r1 <span class="op">*</span> fib_sequence[<span class="op">-</span><span class="dv">1</span>] <span class="op">+</span> (<span class="op">-</span><span class="dv">1</span>)<span class="op">**</span>r2 <span class="op">*</span> fib_sequence[<span class="op">-</span><span class="dv">2</span>]</span>
+<span id="cb4-15"><a href=""></a>            fib_sequence.append(next_fib)</span>
+<span id="cb4-16"><a href=""></a>        <span class="cf">return</span> fib_sequence</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="fragment">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href=""></a><span class="bu">print</span>(vibonacci(<span class="dv">15</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1, 1, 0, 1, 1, 2, 1, 3, 4, 1, 5, 4, 9, 13, 4]</code></pre>
+</div>
+</div>
+</div>
+<div class="fragment">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href=""></a><span class="bu">print</span>(vibonacci(<span class="dv">15</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1, 1, 0, 1, 1, 2, 1, 3, 2, -1, 1, 2, 1, -1, 0]</code></pre>
+</div>
+</div>
+</div>
+</section>
+<section id="fibonacci-aléatoire-t_n-3" class="slide level2">
+<h2>Fibonacci <em>aléatoire</em> (<span class="math inline">\(T_n\)</span>)</h2>
+
+<img data-src="index_files/figure-revealjs/unnamed-chunk-4-1.png" width="960" class="r-stretch"></section></section>
+<section>
+<section id="section" class="title-slide slide level1 center" data-background-image="random_fibonacci.gif" data-background-size="contain">
+<h1></h1>
+
+</section>
+<section id="fibonacci-aléatoire-t_n-4" class="slide level2">
+<h2>Fibonacci <em>aléatoire</em> (<span class="math inline">\(T_n\)</span>)</h2>
+<div>
+<ul>
+<li>Est-ce que les termes <strong>s’annulent</strong> en raison des additions et des soustractions?</li>
+<li>Ou est-ce que la suite augmente exponentiellement avec <span class="math inline">\(n\)</span>, comme la suite de Fibonacci?</li>
+</ul>
+</div>
+<ul>
+<li class="fragment">Divakar Viswanath montre que <span class="math inline">\(\sqrt[n]{|T_n|} \to 1,13198824\ldots\)</span> lorsque <span class="math inline">\(n\to\infty\)</span>.</li>
+<li class="fragment">Il utilise dans sa démonstration l’arbre de <em>Stern-Brocot</em>.</li>
+</ul>
+</section></section>
+<section>
+<section id="larbre-de-stern-brocot" class="title-slide slide level1 center" data-background-color="black">
+<h1>L’arbre de Stern-Brocot</h1>
+
+</section>
+<section id="larbre-de-stern-brocot-1" class="slide level2">
+<h2>L’arbre de Stern-Brocot</h2>
+<ul>
+<li class="fragment">Découvert presque simultanément par le mathématicien allemand Moritz Stern (1858) et par l’<strong>horloger</strong> français Achille Brocot (1861).</li>
+<li class="fragment">CultureMath : <a href="http://www.rogermansuy.fr/pdf/CultureMathBrocot.pdf">Achille Brocot, mathématicien à ses heures</a>.</li>
+<li class="fragment">J’ai une fascination pour les montres mécaniques.</li>
+</ul>
+<div class="fragment">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="https://i.imgur.com/SHjje.gif" style="width:40.0%"></p>
+<figcaption>Montre mécanique</figcaption>
+</figure>
+</div>
+</div>
+</section>
+<section id="larbre-de-stern-brocot-2" class="slide level2">
+<h2>L’arbre de Stern-Brocot</h2>
+<ul>
+<li class="fragment">Section complète dans le livre <a href="https://en.wikipedia.org/wiki/Concrete_Mathematics"><em>Concrete Mathematics</em></a> de Donald Knuth, Oren Patashnik et Ronald Graham.</li>
+<li class="fragment">Article de 1862 de Achille Brocot : <a href="https://gallica.bnf.fr/ark:/12148/bpt6k1661912?rk=21459;2">Calcul des rouages par approximation, nouvelle méthode</a>.</li>
+<li class="fragment">Article de Jean-Paul Delahaye : <a href="https://www.pourlascience.fr/sr/logique-calcul/mathematiques-des-engrenages-23924.php">Mathématiques des engrenages</a>.</li>
+</ul>
+</section></section>
+<section>
+<section id="les-engrenages" class="title-slide slide level1 center" data-background-color="black">
+<h1>Les engrenages</h1>
+
+</section>
+<section id="les-engrenages-1" class="slide level2">
+<h2>Les engrenages</h2>
+<ul>
+<li class="fragment">Cours de Mathématiques I en Techniques de Génie Mécanique.</li>
+<li class="fragment">On parle d’engrenages.</li>
+<li class="fragment">Article de V. G. A. Goss : <a href="https://link.springer.com/article/10.1007/s12045-013-0106-3">Application of analytical geometry to the form of gear teeth</a>.</li>
+<li class="fragment">Article Lyman C. Peck : <a href="https://pubs.nctm.org/view/journals/mt/47/2/article-p97.xml?tab_body=contentSummary">Applications: Gears, gear teeth, and mathematics</a></li>
+</ul>
+</section></section>
+<section>
+<section id="la-courbe-développante-du-cercle" class="title-slide slide level1 center" data-background-color="black">
+<h1>La courbe développante du cercle</h1>
+
+</section>
+<section id="la-courbe-développante-du-cercle-1" class="slide level2">
+<h2>La courbe développante du cercle</h2>
+<ul>
+<li class="fragment">Une développante est le lieu de l’extrémité d’un fil qu’on enroule ou qu’on déroule sur la courbe (C).</li>
+</ul>
+<div class="fragment">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="https://upload.wikimedia.org/wikipedia/commons/6/6e/Involute.gif"></p>
+<figcaption>Développante de la chaînette</figcaption>
+</figure>
+</div>
+</div>
+</section>
+<section id="la-courbe-développante-du-cercle-2" class="slide level2">
+<h2>La courbe développante du cercle</h2>
+<ul>
+<li class="fragment">Elle est utilisée dans les formes des engrenages.</li>
+</ul>
+<div class="fragment">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="https://upload.wikimedia.org/wikipedia/commons/8/8d/Involute_Spur_Gears_Meshing.gif" style="width:60.0%"></p>
+<figcaption>Dents d’engrenage de la forme de la courbe développante du cercle.</figcaption>
+</figure>
+</div>
+</div>
+</section></section>
+<section id="quelquun-doit-arrêter-marc-andré" class="title-slide slide level1 center" data-background-color="black">
+<h1>Quelqu’un doit arrêter Marc-André…</h1>
+<div class="fragment">
+<p><em>Down the rabbit hole…</em></p>
+</div>
+</section>
+
+<section id="section-1" class="title-slide slide level1 center" data-background-image="https://i.imgur.com/hznMluJ.gif" data-background-size="90%" data-background-color="black">
+<h1></h1>
+
+</section>
+
+<section id="la-présentation-débute-enfin" class="title-slide slide level1 center" data-background-color="black">
+<h1>La présentation débute enfin…</h1>
+
+</section>
+
+<section>
+<section id="machine-danticythère" class="title-slide slide level1 center" data-background-color="black">
+<h1>Machine d’Anticythère</h1>
+
+</section>
+<section id="machine-danticythère-1" class="slide level2">
+<h2>Machine d’Anticythère</h2>
+<ul>
+<li class="fragment">La machine d’Anticythère est considérée comme le premier calculateur analogique antique permettant de calculer des positions astronomiques.</li>
+<li class="fragment">C’est un mécanisme de bronze comprenant des dizaines de roues dentées, solidaires et disposées sur plusieurs plans.</li>
+<li class="fragment">Il est garni de nombreuses inscriptions grecques.</li>
+</ul>
+</section></section>
+<section>
+<section id="section-2" class="title-slide slide level1 center" data-background-image="https://cdn.britannica.com/55/198155-050-4119014F/Parts-mechanism-trading-ship-Antikythera-device-wreck-1901.jpg" data-background-size="contain">
+<h1></h1>
+
+</section>
+<section id="machine-danticythère-2" class="slide level2">
+<h2>Machine d’Anticythère</h2>
+<ul>
+<li class="fragment">On connaît de la machine d’Anticythère un unique exemplaire.</li>
+<li class="fragment">Les fragments ont été trouvés en 1901 dans une épave, près de l’île grecque d’Anticythère, entre Cythère et la Crète.</li>
+<li class="fragment">L’épave d’Anticythère était celle d’une galère romaine, longue d’une quarantaine de mètres, qui a été datée comme antérieure à 87 av. J.-C.</li>
+<li class="fragment">C’est le plus vieux mécanisme à engrenages connu.</li>
+</ul>
+</section></section>
+<section id="section-3" class="title-slide slide level1 center" data-background-image="https://upload.wikimedia.org/wikipedia/commons/e/e8/Antikythera_mechanism.svg" data-background-size="contain">
+<h1></h1>
+
+</section>
+
+<section>
+<section id="section-4" class="title-slide slide level1 center" data-background-image="https://upload.wikimedia.org/wikipedia/commons/7/76/Antikythera_model_front_panel_Mogi_Vicentini_2007.JPG" data-background-color="black" data-background-size="contain">
+<h1></h1>
+
+</section>
+<section id="machine-danticythère-3" class="slide level2">
+<h2>Machine d’Anticythère</h2>
+<ul>
+<li class="fragment">Les nombres qui interviennent dans les engrenages sont principalement:
+<ul>
+<li class="fragment">365,nombre de jours du calendrier égyptien</li>
+<li class="fragment">19, nombre d’années du cycle de Méton</li>
+<li class="fragment">235, nombre de lunaisons du cycle de Méton</li>
+<li class="fragment">239, nombre de mois anomalistiques dans un saros</li>
+<li class="fragment">223, nombre de lunaisons dans un saros</li>
+<li class="fragment">53, nombre intervenant dans le taux annuel de rotation de l’orbite elliptique de la Lune</li>
+</ul></li>
+</ul>
+</section></section>
+<section>
+<section id="limportance-des-engrenages" class="title-slide slide level1 center" data-background-color="black">
+<h1>L’importance des engrenages</h1>
+
+</section>
+<section id="limportance-des-engrenages-1" class="slide level2">
+<h2>L’importance des engrenages</h2>
+<ul>
+<li class="fragment">En plus de la machine d’Anticythère;</li>
+<li class="fragment">En 1623, Wilhelm Schickard, pasteur et universitaire, dessine une horloge à calculer.</li>
+<li class="fragment">En 1642, Blaise Pascal invente la machine à calculer.</li>
+<li class="fragment">À partir de 1671, Gottfried Leibniz commence ses travaux sur les machines à calculer.</li>
+<li class="fragment">En 1834, Charles Babbage associe les cartes du métier Jacquard à une machine à calculer et imagine sa machine analytique.</li>
+<li class="fragment">Et bien sûr, les horloges et montres mécaniques.</li>
+</ul>
+</section>
+<section id="limportance-des-engrenages-2" class="slide level2">
+<h2>L’importance des engrenages</h2>
+<ul>
+<li class="fragment">Les exemples précédents montrent l’importance des engrenages dans l’histoire de l’informatique et du calcul.</li>
+<li class="fragment">De manière surprenante, les engrenages démontrent également l’importance de l’aspect calculatoire dans l’histoire des engrenages.</li>
+<li class="fragment">Les designers d’engrenages ont utilisé des idées provenant des mathématiciens, mais ils ont aussi développé certaines de ces idées par eux-mêmes.</li>
+<li class="fragment">Les mathématiciens ont ensuite réutilisé ces idées.</li>
+</ul>
+</section>
+<section id="quest-ce-quun-engrenage" class="slide level2">
+<h2>Qu’est-ce qu’un engrenage</h2>
+<ul>
+<li class="fragment">Un engrenage comprend au minimum deux roues dentées.</li>
+<li class="fragment">La roue dentée comportant le moins de dents est appelée pignon.</li>
+</ul>
+<div class="fragment">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="index_files/figure-revealjs/engrenage-simple-1-1.png" class="quarto-figure quarto-figure-center" width="576"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="la-première-loi-des-engrenages" class="slide level2">
+<h2>La première loi des engrenages</h2>
+<ul>
+<li class="fragment">La vitesse d’une roue dentée est inversement proportionnelle au nombre de ses dents.</li>
+<li class="fragment">Pour une roue dentée <span class="math inline">\(A\)</span>:
+<ul>
+<li class="fragment"><span class="math inline">\(T_A\)</span> correspond au nombre de tours de <span class="math inline">\(A\)</span>.</li>
+<li class="fragment"><span class="math inline">\(D_A\)</span> correspond au nombre de dents de <span class="math inline">\(A\)</span>.</li>
+</ul></li>
+<li class="fragment">Si le pignon <span class="math inline">\(A\)</span> fait <span class="math inline">\(1\)</span> tour, nous avons:</li>
+</ul>
+<div class="fragment">
+<span class="math display">\[\begin{aligned}
+1\ \text{tour }A \cdot \frac{D_A}{1\ \text{tour }A} \cdot \frac{1\ \text{tour }B}{D_B} &amp;= \frac{D_A}{D_B}\ \text{tour }B
+\end{aligned}\]</span>
+</div>
+</section>
+<section id="la-première-loi-des-engrenages-1" class="slide level2">
+<h2>La première loi des engrenages</h2>
+<ul>
+<li class="fragment">Si le pignon possède 20 dents et l’autre roue dentée en possède 60.</li>
+<li class="fragment">Une révolution du pignon fera tourner l’autre roue de <span class="math inline">\(\frac{20}{60}=\frac{1}{3}\)</span> de révolution.</li>
+</ul>
+<div class="fragment">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="engrenage-simple.gif" class="quarto-figure quarto-figure-center" style="width:50.0%"></p>
+</figure>
+</div>
+</div>
+</section></section>
+<section>
+<section id="le-problème-de-base" class="title-slide slide level1 center" data-background-color="black">
+<h1>Le problème de base</h1>
+
+</section>
+<section id="le-problème-de-base-1" class="slide level2">
+<h2>Le problème de base</h2>
+<ul>
+<li class="fragment">Supposons que nous avons un essieu qui fait une révolution par minute.</li>
+<li class="fragment">Vous voulez créer un engrenage qui ralentira ce mouvement à une révolution par jour.</li>
+<li class="fragment">On obtient un rapport de vitesse de 1 440 à 1.</li>
+<li class="fragment">La solution simple est d’avoir un pignon à une dent et une roue dentelée à 1 440 dents.</li>
+<li class="fragment">Un pignon à 1 dent n’est pas utilisable et une roue de 1 440 dents est beaucoup trop grande.</li>
+</ul>
+</section>
+<section id="le-problème-de-base-2" class="slide level2">
+<h2>Le problème de base</h2>
+<ul>
+<li class="fragment">On peut résoudre le problème du pignon en multipliant le nombre de dents par 10.</li>
+<li class="fragment">On obtient un pignon a 10 dents, mais la roue possède maintenant 14 400 dents.</li>
+<li class="fragment">La solution est d’ajouter des roues dentelées.</li>
+</ul>
+</section>
+<section id="le-problème-de-base-3" class="slide level2">
+<h2>Le problème de base</h2>
+<ul>
+<li class="fragment">Si on ajoute une roue dentelée entre les deux, on appelle cette roue <em>pignon fou</em>.</li>
+<li class="fragment">Ce pignon fou ne sert qu’à changer le sens de rotation, il ne change pas le rapport de vitesse.</li>
+</ul>
+<div class="fragment">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="index_files/figure-revealjs/pignon-fou-1.png" class="quarto-figure quarto-figure-center" width="576"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="le-problème-de-base-4" class="slide level2">
+<h2>Le problème de base</h2>
+<ul>
+<li class="fragment">La solution est de combiner plusieurs engrenages en utilisant des essieus.</li>
+</ul>
+<div class="fragment">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="index_files/figure-revealjs/engrenage-4-roues-1.png" class="quarto-figure quarto-figure-center" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="le-problème-de-base-5" class="slide level2">
+<h2>Le problème de base</h2>
+<ul>
+<li class="fragment">Le rapport de vitesse devient <span class="math inline">\(\frac{20}{60}\cdot \frac{20}{60}=\frac{1}{9}\)</span>.</li>
+</ul>
+
+<img data-src="index_files/figure-revealjs/engrenage-4-roues-1-1.png" class="quarto-figure quarto-figure-center r-stretch" width="576"></section>
+<section id="le-problème-de-base-6" class="slide level2">
+<h2>Le problème de base</h2>
+<ul>
+<li class="fragment">Nous voulons obtenir un rapport de 1 440 pour 1.</li>
+<li class="fragment">Nous allons utiliser plusieurs engrenages reliés par des essieus.</li>
+<li class="fragment">Pour trouver le rapport total, on multiplie les rapports de tous les engrenages.</li>
+<li class="fragment">Par exemple, si on utilise un premier engrenage de rapport <span class="math inline">\(\frac{6}{200}\)</span> et un autre de rapport <span class="math inline">\(\frac{5}{216}\)</span>, on obtiens le produit <span class="math inline">\(\frac{30}{43\ 200}\)</span>, qui se réduit à <span class="math inline">\(\frac{1}{1\ 440}\)</span>.</li>
+</ul>
+</section>
+<section id="le-problème-de-base-7" class="slide level2">
+<h2>Le problème de base</h2>
+<ul>
+<li class="fragment">Si des roues dentelées de 200 et de 216 dents sont encore trop larges, on ajoute un engrenage.</li>
+<li class="fragment">Par exemple, si on utilise un premier engrenage de rapport <span class="math inline">\(\frac{6}{72}\)</span>, un second de rapport <span class="math inline">\(\frac{6}{60}\)</span> et un dernier de rapport <span class="math inline">\(\frac{5}{60}\)</span>, on obtiens encore un rapport total de <span class="math inline">\(\frac{1}{1\ 440}\)</span>.</li>
+<li class="fragment">Une question importante se pose.</li>
+</ul>
+<div style="text-align: center; margin-top: 1em">
+<div class="fragment">
+<p>D’où viennent les nombres <span class="math inline">\(\frac{6}{200}\)</span> et <span class="math inline">\(\frac{5}{216}\)</span>?</p>
+</div>
+</div>
 <div class="quarto-auto-generated-content">
 <div class="footer footer-default">
 
 </div>
 </div>
-</section>
+</section></section>
     </div>
   </div>
 
@@ -486,7 +1000,7 @@ Marc-André Désautels
         defaultTiming: null,
 
         // Enable slide navigation via mouse wheel
-        mouseWheel: true,
+        mouseWheel: false,
 
         // The display mode that will be used to show slides
         display: 'block',
@@ -555,6 +1069,82 @@ Marc-André Désautels
         ]
       });
     </script>
+    
+
+    <script>
+
+      // htmlwidgets need to know to resize themselves when slides are shown/hidden.
+
+      // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
+
+      // slide changes (different for each slide format).
+
+      (function () {
+
+        // dispatch for htmlwidgets
+
+        function fireSlideEnter() {
+
+          const event = window.document.createEvent("Event");
+
+          event.initEvent("slideenter", true, true);
+
+          window.document.dispatchEvent(event);
+
+        }
+
+    
+
+        function fireSlideChanged(previousSlide, currentSlide) {
+
+          fireSlideEnter();
+
+    
+
+          // dispatch for shiny
+
+          if (window.jQuery) {
+
+            if (previousSlide) {
+
+              window.jQuery(previousSlide).trigger("hidden");
+
+            }
+
+            if (currentSlide) {
+
+              window.jQuery(currentSlide).trigger("shown");
+
+            }
+
+          }
+
+        }
+
+    
+
+        // hookup for slidy
+
+        if (window.w3c_slidy) {
+
+          window.w3c_slidy.add_observer(function (slide_num) {
+
+            // slide_num starts at position 1
+
+            fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
+
+          });
+
+        }
+
+    
+
+      })();
+
+    </script>
+
+    
+
     <script id="quarto-html-after-body" type="application/javascript">
     window.document.addEventListener("DOMContentLoaded", function (event) {
       const toggleBodyColorMode = (bsSheetEl) => {

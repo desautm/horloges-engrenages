@@ -1,5 +1,5 @@
 ---
-title: "Horloges et engrenages"
+title: "Pourquoi les engrenages aiment les fractions… et un arbre en particulier"
 author: "Marc-André Désautels"
 format: 
   revealjs:
@@ -7,8 +7,529 @@ format:
 editor: visual
 title-slide-attributes:
   data-background-color: "black"
-highlight-style: github-dark
-mouse-wheel: true
+highlight-style: github
 execute: 
   cache: true
 ---
+
+```{r}
+#| label: setup-r
+#| output: false
+library("reticulate")
+use_python("C:/Users/mdesautels/AppData/Local/Programs/Python/Python312")
+py_require("matplotlib")
+py_require("numpy")
+py_config()
+```
+
+```{python}
+#| label: setup-python
+#| output: false
+import random
+import numpy as np
+import matplotlib.pyplot as plt
+
+def fibonacci(n):
+    """
+    Génère les n premiers nombres de Fibonacci.
+    """
+    if n <= 0:
+        return []
+    elif n == 1:
+        return [1]
+    else:
+        fib_sequence = [1, 1]
+        while len(fib_sequence) < n:
+            next_fib = fib_sequence[-1] + fib_sequence[-2]
+            fib_sequence.append(next_fib)
+        return fib_sequence
+
+def vibonacci(n):
+    """
+    Génère les n premiers nombres de Vibonacci.
+    """
+    if n <= 0:
+        return []
+    elif n == 1:
+        return [1]
+    else:
+        fib_sequence = [1, 1]
+        while len(fib_sequence) < n:
+            r = random.randint(0, 1)
+            if r == 0:
+                next_fib = fib_sequence[-1] + fib_sequence[-2]
+            else:
+                next_fib = fib_sequence[-1] - fib_sequence[-2]
+            fib_sequence.append(next_fib)
+        return fib_sequence
+```
+
+# Comment Marc-André est arrivé à cette idée? {background-color="black"}
+
+## Un petit détour avant de commencer.
+
+- Avant d’entrer dans le coeur du sujet, je veux vous montrer le chemin par lequel j’y suis arrivé.
+- On me demande parfois comment je trouve mes idées.
+- Et cette fois-ci encore, le parcours a été fait de curiosité, de détours inattendus et de liens surprenants entre mécanique et mathématiques.
+- En quelques minutes, je vous présente donc ma démarche créative : comment mes idées se sont engrenées… jusqu’à cette présentation.
+
+## Fibonacci
+
+- Nouveau programme de Sciences, Informatique et Mathématiques au cégep Saint-Jean-sur-Richelieu.
+- Nouveau cours de *Mathématiques discrètes*.
+- Les personnes étudiantes utilisent `Python` en programmation.
+- Dans le cadre de ce cours, on veut présenter des liens entre Mathématiques et Informatique.
+- Un choix facile est la suite de Fibonacci.
+
+## Fibonacci
+
+- La suite de Fibonacci est l’une des structures les plus riches pour illustrer les concepts clés d’un cours de mathématiques discrètes.
+- Récurrences linéaires.
+- Combinatoire et dénombrement:
+  - Nombre de façons de monter un escalier avec pas de 1 ou de 2;
+  - Configurations sans éléments adjacents.
+- Algorithmes récursifs.
+- Etc.
+
+## Fibonacci
+
+$$
+F_n = F_{n-1}+F_{n-2} \quad \text{où } F_1=F_2=1
+$$
+
+- Un des nombreux résultats concernant la suite de Fibonacci implique la limite des quotients.
+- $\lim\limits_{n\to\infty} \dfrac{F_{n+1}}{F_n} = \varphi = \dfrac{1+\sqrt{5}}{2}$
+
+## Fibonacci
+
+```{.python}
+def fibonacci(n):
+    """
+    Génère les n premiers nombres de Fibonacci.
+    """
+    if n <= 0:
+        return []
+    elif n == 1:
+        return [1]
+    else:
+        fib_sequence = [1, 1]
+        while len(fib_sequence) < n:
+            next_fib = fib_sequence[-1] + fib_sequence[-2]
+            fib_sequence.append(next_fib)
+        return fib_sequence
+```
+
+. . .
+
+```{python}
+#| echo: true
+print(fibonacci(15))
+```
+
+# Fibonacci *aléatoire* ($T_n$) {background-color="black"}
+
+## Fibonacci *aléatoire* ($T_n$)
+
+- $T_1=T_2=1$.
+- $T_n = T_{n-1}+T_{n-2}$ avec probabilité $\frac{1}{4}$.
+- $T_n = -T_{n-1}+T_{n-2}$ avec probabilité $\frac{1}{4}$.
+- $T_n = T_{n-1}-T_{n-2}$ avec probabilité $\frac{1}{4}$.
+- $T_n = -T_{n-1}-T_{n-2}$ avec probabilité $\frac{1}{4}$.
+- Est-ce que les termes **s'annulent** en raison des additions et des soustractions?
+- Ou est-ce que la suite augmente exponentiellement avec $n$, comme la suite de Fibonacci?
+
+## Fibonacci *aléatoire* ($T_n$)
+
+```{.python}
+def vibonacci(n):
+    """
+    Génère les n premiers nombres de Vibonacci.
+    """
+    if n <= 0:
+        return []
+    elif n == 1:
+        return [1]
+    else:
+        fib_sequence = [1, 1]
+        while len(fib_sequence) < n:
+            r1 = random.randint(0, 1)
+            r2 = random.randint(0, 1)
+            next_fib = (-1)**r1 * fib_sequence[-1] + (-1)**r2 * fib_sequence[-2]
+            fib_sequence.append(next_fib)
+        return fib_sequence
+```
+
+. . .
+
+```{python}
+#| echo: true
+print(vibonacci(15))
+```
+
+. . .
+
+```{python}
+#| echo: true
+print(vibonacci(15))
+```
+
+## Fibonacci *aléatoire* ($T_n$)
+
+```{python}
+fig, ax = plt.subplots()
+plt.rc('text', usetex=True)
+plt.rc('font', family='serif')
+x = np.linspace(1,1001,1000)
+v = vibonacci(1000)
+y1 = [abs(t) for t in v]
+y2 = [1.132**n for n in range(1,1001)]
+plt.semilogy(x, y1)
+plt.semilogy(x, y2, linestyle='dashed')
+plt.title("Nombres de Vibonacci versus 1.132^n")
+plt.xlabel("n")
+plt.ylabel(r'$|T_n|$')
+plt.show()
+```
+
+# {background-image="random_fibonacci.gif" background-size="contain"}
+
+## Fibonacci *aléatoire* ($T_n$)
+
+::: {.nonincremental}
+- Est-ce que les termes **s'annulent** en raison des additions et des soustractions?
+- Ou est-ce que la suite augmente exponentiellement avec $n$, comme la suite de Fibonacci?
+:::
+
+- Divakar Viswanath montre que $\sqrt[n]{|T_n|} \to 1,13198824\ldots$ lorsque $n\to\infty$.
+- Il utilise dans sa démonstration l'arbre de *Stern-Brocot*.
+
+# L'arbre de Stern-Brocot {background-color="black"}
+
+## L'arbre de Stern-Brocot
+
+- Découvert presque simultanément par le mathématicien allemand Moritz Stern (1858) et par l'**horloger** français Achille Brocot (1861).
+- CultureMath : [Achille Brocot, mathématicien à ses heures](http://www.rogermansuy.fr/pdf/CultureMathBrocot.pdf).
+- J'ai une fascination pour les montres mécaniques.
+
+. . .
+
+![Montre mécanique](https://i.imgur.com/SHjje.gif){width=40%}
+
+## L'arbre de Stern-Brocot
+
+- Section complète dans le livre [*Concrete Mathematics*](https://en.wikipedia.org/wiki/Concrete_Mathematics) de Donald Knuth, Oren Patashnik et Ronald Graham.
+- Article de 1862 de Achille Brocot : [Calcul des rouages par approximation, nouvelle méthode](https://gallica.bnf.fr/ark:/12148/bpt6k1661912?rk=21459;2).
+- Article de Jean-Paul Delahaye : [Mathématiques des engrenages](https://www.pourlascience.fr/sr/logique-calcul/mathematiques-des-engrenages-23924.php).
+
+# Les engrenages {background-color="black"}
+
+## Les engrenages
+
+- Cours de Mathématiques I en Techniques de Génie Mécanique.
+- On parle d'engrenages.
+- Article de V. G. A. Goss : [Application of analytical geometry to the form of gear teeth](https://link.springer.com/article/10.1007/s12045-013-0106-3).
+- Article Lyman C. Peck : [Applications: Gears, gear teeth, and mathematics](https://pubs.nctm.org/view/journals/mt/47/2/article-p97.xml?tab_body=contentSummary)
+
+# La courbe développante du cercle {background-color="black"}
+
+## La courbe développante du cercle
+
+- Une développante est le lieu de l'extrémité d'un fil qu'on enroule ou qu'on déroule sur la courbe (C).
+
+. . .
+
+![Développante de la chaînette](https://upload.wikimedia.org/wikipedia/commons/6/6e/Involute.gif)
+
+## La courbe développante du cercle
+
+- Elle est utilisée dans les formes des engrenages.
+
+. . .
+
+![Dents d'engrenage de la forme de la courbe développante du cercle.](https://upload.wikimedia.org/wikipedia/commons/8/8d/Involute_Spur_Gears_Meshing.gif){width=60%}
+
+# Quelqu'un doit arrêter Marc-André... {background-color="black"}
+
+. . .
+
+*Down the rabbit hole...*
+
+# {background-image="https://i.imgur.com/hznMluJ.gif"
+background-size="90%"
+background-color="black"}
+
+# La présentation débute enfin... {background-color="black"}
+
+# Machine d'Anticythère {background-color="black"}
+
+## Machine d'Anticythère
+
+- La machine d'Anticythère est considérée comme le premier calculateur analogique antique permettant de calculer des positions astronomiques. 
+- C'est un mécanisme de bronze comprenant des dizaines de roues dentées, solidaires et disposées sur plusieurs plans. 
+- Il est garni de nombreuses inscriptions grecques.
+
+# {background-image="https://cdn.britannica.com/55/198155-050-4119014F/Parts-mechanism-trading-ship-Antikythera-device-wreck-1901.jpg"
+background-size="contain"}
+
+## Machine d'Anticythère
+
+- On connaît de la machine d'Anticythère un unique exemplaire.
+- Les fragments ont été trouvés en 1901 dans une épave, près de l'île grecque d'Anticythère, entre Cythère et la Crète. 
+- L'épave d'Anticythère était celle d’une galère romaine, longue d'une quarantaine de mètres, qui a été datée comme antérieure à 87 av. J.-C.
+- C'est le plus vieux mécanisme à engrenages connu.
+
+# {background-image="https://upload.wikimedia.org/wikipedia/commons/e/e8/Antikythera_mechanism.svg"
+background-size="contain"}
+
+# {background-image="https://upload.wikimedia.org/wikipedia/commons/7/76/Antikythera_model_front_panel_Mogi_Vicentini_2007.JPG"
+background-color="black"
+background-size="contain"}
+
+## Machine d'Anticythère
+
+- Les nombres qui interviennent dans les engrenages sont principalement:
+  - 365,nombre de jours du calendrier égyptien
+  - 19, nombre d'années du cycle de Méton
+  - 235, nombre de lunaisons du cycle de Méton
+  - 239, nombre de mois anomalistiques dans un saros
+  - 223, nombre de lunaisons dans un saros
+  - 53, nombre intervenant dans le taux annuel de rotation de l’orbite elliptique de la Lune
+
+# L'importance des engrenages {background-color="black"}
+
+## L'importance des engrenages
+
+- En plus de la machine d'Anticythère;
+- En 1623, Wilhelm Schickard, pasteur et universitaire, dessine une horloge à calculer.
+- En 1642, Blaise Pascal invente la machine à calculer.
+- À partir de 1671, Gottfried Leibniz commence ses travaux sur les machines à calculer.
+- En 1834, Charles Babbage associe les cartes du métier Jacquard à une machine à calculer et imagine sa machine analytique.
+- Et bien sûr, les horloges et montres mécaniques.
+
+## L'importance des engrenages
+
+- Les exemples précédents montrent l'importance des engrenages dans l'histoire de l'informatique et du calcul.
+- De manière surprenante, les engrenages démontrent également l'importance de l'aspect calculatoire dans l'histoire des engrenages.
+- Les designers d'engrenages ont utilisé des idées provenant des mathématiciens, mais ils ont aussi développé certaines de ces idées par eux-mêmes.
+- Les mathématiciens ont ensuite réutilisé ces idées.
+
+## Qu'est-ce qu'un engrenage
+
+- Un engrenage comprend au minimum deux roues dentées.
+- La roue dentée comportant le moins de dents est appelée pignon.
+
+. . .
+```{r engine="tikz"}
+#| fig-align: "center"
+#| fig-width: 6
+#| label: "engrenage-simple-1"
+
+\newcommand{\gear}[5]{%
+%
+\pgfmathsetmacro{\R}{#1*#2/2}
+\pgfmathsetmacro{\Ri}{\R-0.75*#2}
+\pgfmathsetmacro{\Re}{\R+0.75*#2}
+\pgfmathsetmacro{\s}{180/#1*0.2}
+\pgfmathsetmacro{\a}{180/#1*0.9}
+%
+\begin{scope}[shift={#5},rotate=#4]
+\fill[#3] (0,0) circle (\Ri);
+\fill[black] (0,0) circle (5mm);
+\foreach \i in {1,...,#1} {%
+\draw[black,fill=#3,line width=5pt,rotate=(360/#1)*(\i-1)] 
+(0:\Ri) arc (0:\a:\Ri) -- (\a+\s:\Re) 
+arc (\a+\s:360/#1-\s:\Re) -- (360/#1:\Ri);}
+\end{scope}
+}
+\begin{tikzpicture}
+\gear{20}{0.5}{green!50}{0}{(0,0)}
+\node[above] at (0,1) {\resizebox{0.2\linewidth}{!}{20}};
+\gear{60}{0.5}{blue!50}{0}{(0:20)}
+\node[above] at (20,1) {\resizebox{0.2\linewidth}{!}{60}};
+\end{tikzpicture}  
+```
+
+
+## La première loi des engrenages
+
+- La vitesse d'une roue dentée est inversement proportionnelle au nombre de ses dents.
+- Pour une roue dentée $A$:
+  - $T_A$ correspond au nombre de tours de $A$.
+  - $D_A$ correspond au nombre de dents de $A$.
+- Si le pignon $A$ fait $1$ tour, nous avons:
+
+. . .
+
+\begin{aligned}
+1\ \text{tour }A \cdot \frac{D_A}{1\ \text{tour }A} \cdot \frac{1\ \text{tour }B}{D_B} &= \frac{D_A}{D_B}\ \text{tour }B
+\end{aligned}
+
+## La première loi des engrenages
+
+- Si le pignon possède 20 dents et l'autre roue dentée en possède 60.
+- Une révolution du pignon fera tourner l'autre roue de $\frac{20}{60}=\frac{1}{3}$ de révolution.
+
+. . .
+
+![](engrenage-simple.gif){width=50% fig-align="center"}
+
+# Le problème de base {background-color="black"}
+
+## Le problème de base
+
+- Supposons que nous avons un essieu qui fait une révolution par minute.
+- Vous voulez créer un engrenage qui ralentira ce mouvement à une révolution par jour.
+- On obtient un rapport de vitesse de 1 440 à 1.
+- La solution simple est d'avoir un pignon à une dent et une roue dentelée à 1 440 dents.
+- Un pignon à 1 dent n'est pas utilisable et une roue de 1 440 dents est beaucoup trop grande.
+
+
+## Le problème de base
+
+- On peut résoudre le problème du pignon en multipliant le nombre de dents par 10. 
+- On obtient un pignon a 10 dents, mais la roue possède maintenant 14 400 dents.
+- La solution est d'ajouter des roues dentelées.
+
+## Le problème de base
+
+- Si on ajoute une roue dentelée entre les deux, on appelle cette roue *pignon fou*.
+- Ce pignon fou ne sert qu'à changer le sens de rotation, il ne change pas le rapport de vitesse.
+
+. . .
+
+```{r engine="tikz"}
+#| fig-align: "center"
+#| fig-width: 6
+#| label: "pignon-fou"
+
+\newcommand{\gear}[5]{%
+%
+\pgfmathsetmacro{\R}{#1*#2/2}
+\pgfmathsetmacro{\Ri}{\R-0.75*#2}
+\pgfmathsetmacro{\Re}{\R+0.75*#2}
+\pgfmathsetmacro{\s}{180/#1*0.2}
+\pgfmathsetmacro{\a}{180/#1*0.9}
+%
+\begin{scope}[shift={#5},rotate=#4]
+\fill[#3] (0,0) circle (\Ri);
+\fill[black] (0,0) circle (5mm);
+\foreach \i in {1,...,#1} {%
+\draw[black,fill=#3,line width=5pt,rotate=(360/#1)*(\i-1)] 
+(0:\Ri) arc (0:\a:\Ri) -- (\a+\s:\Re) 
+arc (\a+\s:360/#1-\s:\Re) -- (360/#1:\Ri);}
+\end{scope}
+}
+\begin{tikzpicture}
+\gear{20}{0.5}{green!50}{0}{(0,0)}
+\node[above] at (0,1) {\resizebox{0.2\linewidth}{!}{20}};
+\gear{40}{0.5}{red!50}{0}{(0:15)}
+\node[above] at (15,1) {\resizebox{0.2\linewidth}{!}{40}};
+\gear{60}{0.5}{blue!50}{0}{(0:40)}
+\node[above] at (40,1) {\resizebox{0.2\linewidth}{!}{60}};
+\end{tikzpicture}
+```
+
+## Le problème de base
+
+- La solution est de combiner plusieurs engrenages en utilisant des essieus.
+
+. . .
+
+```{r engine="tikz"}
+#| fig-align: "center"
+#| fig-width: 10
+#| label: "engrenage-4-roues"
+
+\newcommand{\gear}[5]{%
+%
+\pgfmathsetmacro{\R}{#1*#2/2}
+\pgfmathsetmacro{\Ri}{\R-0.75*#2}
+\pgfmathsetmacro{\Re}{\R+0.75*#2}
+\pgfmathsetmacro{\s}{180/#1*0.2}
+\pgfmathsetmacro{\a}{180/#1*0.9}
+%
+\begin{scope}[shift={#5},rotate=#4]
+\fill[#3] (0,0) circle (\Ri);
+\fill[black] (0,0) circle (5mm);
+\foreach \i in {1,...,#1} {%
+\draw[black,fill=#3,line width=5pt,rotate=(360/#1)*(\i-1)] 
+(0:\Ri) arc (0:\a:\Ri) -- (\a+\s:\Re) 
+arc (\a+\s:360/#1-\s:\Re) -- (360/#1:\Ri);}
+\end{scope}
+}
+\begin{tikzpicture}
+\gear{20}{0.5}{green!50}{0}{(0,0)}
+\node[above] at (0,1) {\resizebox{0.2\linewidth}{!}{20}};
+\gear{60}{0.5}{blue!50}{0}{(0:20)}
+\node[above] at (20,6) {\resizebox{0.2\linewidth}{!}{60}};
+\gear{20}{0.5}{green!50}{0}{(20,0)}
+\node[above] at (20,1) {\resizebox{0.2\linewidth}{!}{20}};
+\gear{60}{0.5}{blue!50}{0}{(40,0)}
+\node[above] at (40,6) {\resizebox{0.2\linewidth}{!}{60}};
+\end{tikzpicture}
+```
+
+## Le problème de base
+
+- Le rapport de vitesse devient $\frac{20}{60}\cdot \frac{20}{60}=\frac{1}{9}$.
+
+```{r engine="tikz"}
+#| fig-align: "center"
+#| fig-width: 6
+#| label: "engrenage-4-roues-1"
+
+\newcommand{\gear}[5]{%
+%
+\pgfmathsetmacro{\R}{#1*#2/2}
+\pgfmathsetmacro{\Ri}{\R-0.75*#2}
+\pgfmathsetmacro{\Re}{\R+0.75*#2}
+\pgfmathsetmacro{\s}{180/#1*0.2}
+\pgfmathsetmacro{\a}{180/#1*0.9}
+%
+\begin{scope}[shift={#5},rotate=#4]
+\fill[#3] (0,0) circle (\Ri);
+\fill[black] (0,0) circle (5mm);
+\foreach \i in {1,...,#1} {%
+\draw[black,fill=#3,line width=5pt,rotate=(360/#1)*(\i-1)] 
+(0:\Ri) arc (0:\a:\Ri) -- (\a+\s:\Re) 
+arc (\a+\s:360/#1-\s:\Re) -- (360/#1:\Ri);}
+\end{scope}
+}
+\begin{tikzpicture}
+\gear{20}{0.5}{green!50}{0}{(0,0)}
+\node[above] at (0,1) {\resizebox{0.2\linewidth}{!}{20}};
+\gear{60}{0.5}{blue!50}{0}{(0:20)}
+\node[above] at (20,6) {\resizebox{0.2\linewidth}{!}{60}};
+\gear{20}{0.5}{green!50}{0}{(20,0)}
+\node[above] at (20,1) {\resizebox{0.2\linewidth}{!}{20}};
+\gear{60}{0.5}{blue!50}{0}{(40,0)}
+\node[above] at (40,6) {\resizebox{0.2\linewidth}{!}{60}};
+\end{tikzpicture}
+```
+
+## Le problème de base
+
+- Nous voulons obtenir un rapport de 1 440 pour 1. 
+- Nous allons utiliser plusieurs engrenages reliés par des essieus.
+- Pour trouver le rapport total, on multiplie les rapports de tous les engrenages.
+- Par exemple, si on utilise un premier engrenage de rapport $\frac{6}{200}$ et un autre de rapport $\frac{5}{216}$, on obtiens le produit $\frac{30}{43\ 200}$, qui se réduit à $\frac{1}{1\ 440}$.
+
+## Le problème de base
+
+- Si des roues dentelées de 200 et de 216 dents sont encore trop larges, on ajoute un engrenage.
+- Par exemple, si on utilise un premier engrenage de rapport $\frac{6}{72}$, un second de rapport $\frac{6}{60}$ et un dernier de rapport $\frac{5}{60}$, on obtiens encore un rapport total de $\frac{1}{1\ 440}$.
+- Une question importante se pose.
+
+::: {style="text-align: center; margin-top: 1em"}
+::: {.fragment}
+D'où viennent les nombres $\frac{6}{200}$ et $\frac{5}{216}$?
+:::
+:::
+
+# Théorie des nombres {background-color="black"}
+
+## Théorie des nombres
+
+- 
+
+The answer comes straight from number theory: factoring. In the ratio 30/43200, the numerator has the prime factors 2x3x5, and the denominator breaks down into eleven factors: 2x2x2x2x2x2x3x3x3x5x5. The Fundamental Theorem of Arithmetic guarantees that no matter how you group these factors, their product will always be the same. The factors of the numerator can be partitioned into two groups in just three ways: 6x5, 3x10 and 2x15. The factors of the denominator 43,200 can be partitioned into two groups in 41 distinguishable ways.
