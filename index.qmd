@@ -191,7 +191,7 @@ plt.ylabel(r'$|T_n|$')
 plt.show()
 ```
 
-# {background-image="random_fibonacci.gif" background-size="contain"}
+# {background-image="images/random_fibonacci.gif" background-size="contain"}
 
 ## Fibonacci *aléatoire* ($T_n$)
 
@@ -371,7 +371,7 @@ arc (\a+\s:360/#1-\s:\Re) -- (360/#1:\Ri);}
 
 . . .
 
-![](engrenage-simple.gif){width=50% fig-align="center"}
+![](images/engrenage-simple.gif){width=50% fig-align="center"}
 
 # Le problème de base {background-color="black"}
 
